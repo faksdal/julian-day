@@ -11,6 +11,8 @@
 
 timestamp::timestamp(int _year, short _month, float _day, short _hour, short _minute, float _second, bool _verbose)
 {
+	ts_validDate = true;
+
 	ts_year 	= _year;
 	ts_month	= _month;
 	ts_hour		= _hour;
@@ -19,7 +21,60 @@ timestamp::timestamp(int _year, short _month, float _day, short _hour, short _mi
 	ts_second	= _second;
 	ts_verbose	= _verbose;
 
+	std::cout << " _year: " << _year << std::endl;
+	std::cout << "_month: " << _month << std::endl;
+	std::cout << "  _day: " << _day << std::endl;
+
+	std::cout << " ts_year: " << ts_year << std::endl;
+	std::cout << "ts_month: " << ts_month << std::endl;
+	std::cout << "  ts_day: " << ts_day << std::endl;
+
 	ts_parseDate();
+
+
+	// check date for validity
+	// Check 31-day months first
+	// TODO: Must allow for fraction of days, also last day of month.
+	// TODO: This means we must allow for day > 31 (up til 32, but not including 32)
+	//
+	if(ts_month == 1 ||
+	   ts_month == 3 ||
+	   ts_month == 5 ||
+	   ts_month == 7 ||
+	   ts_month == 8 ||
+	   ts_month == 10 ||
+	   ts_month == 12){
+
+		if(_day < 1 || _day > 31){
+			ts_validDate = false;
+		}
+	}
+	else if(ts_month == 4 ||
+			ts_month == 6 ||
+			ts_month == 9 ||
+			ts_month == 11){
+
+		if(_day < 1 || _day > 30){
+			ts_validDate = false;
+		}
+	}
+	else if(ts_month == 2 && ts_isLeap){
+
+		if(_day < 1 || _day > 29){
+			ts_validDate = false;
+		}
+	}
+	else if(ts_month == 2 && !ts_isLeap){
+
+		if(_day < 1 || _day > 28){
+			ts_validDate = false;
+		}
+	}
+
+
+	if(!ts_validDate){
+		std::cerr << "[ ERROR ] Supply a valid date!" << std::endl;
+	}
 
 	return;
 }

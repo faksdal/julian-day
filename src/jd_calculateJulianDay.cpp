@@ -49,23 +49,35 @@ void julianday::jd_calculateJulianDay(void)
 
 	//
 	//	Calculate the jdn according to p.61 (7.1) in Jean Meeus Astronomical Algorithms Second Edition published in 1998.
-	//	I keep a separate variable, jdnJdnNoon, for the start of the jdn. I believe it will be useful for calculating
-	//	sunrise and sunsets later in the project.
 	//
+	//	We calculate first the value for JD at noon
 	jd_julianDay =		floor(365.25 * (Y + 4716.))
 					+	floor(30.6001 * (M + 1.))
-					+	ts_getDay() + B - 1524.5;
+					+	ts_getDay() + B - 1524.5
+					;//-	0.5;
 
-	//jdnJdnNoon += 0.5;
+	jd_julianDayFraction	=		floor(365.25 * (Y + 4716.))
+								+	floor(30.6001 * (M + 1.))
+								+	ts_getDay() + B - 1524.5
+								+	((ts_getHour() + (ts_getMinute()/60) + (ts_getSecond()/60))/24.);
 
-	if(jd_verbose)
-		std::cout << "      Julian Day (JD): " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_julianDay << std::endl;
+	// Calculate doy
+	short K;
+	ts_getLeap() ? K = 1 : K = 2;
+	jd_doy = floor( ((275 * ts_getMonth())/9) ) - K * floor(((ts_getMonth() + 9)/(12))) + ts_getDay() - 30;
+
+	if(jd_verbose){
+		std::cout << std::fixed;
+		std::cout << "               Julian Day: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_julianDay << std::endl;
+		std::cout << "      Julian Day Fraction: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_julianDayFraction << std::endl;
+		std::cout << "                      doy: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_doy << std::endl;
+	}
 
 /*
 	//
 	// Calculate the fraction of the day
 	//
-	jdnJulianDay += (((jdnHour - jdnTz) + (jdnMinute / 60.) + (jdnSecond / 3600.) ) / 24.);
+	jdnJulianDay += (((jd_hour - jdnTz) + (jdnMinute / 60.) + (jdnSecond / 3600.) ) / 24.);
 
 	//if(jdnVerbose)
 		//cout	<< "      Julian Day Number (jdn): " << setw(30) << setprecision(15) << setfill(' ') << jdnGetJdnJulianDay() << endl;

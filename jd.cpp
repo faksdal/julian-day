@@ -22,7 +22,8 @@
 #include <sys/time.h>
 
 
-#include "timestamp.h"
+//#include "timestamp.h"
+#include "julianday.h"
 
 void parseOptarg(char **_optarg);
 void getSystemDate(int &_year, short &_month, float &_day, bool _verbose);
@@ -84,12 +85,17 @@ int main(int argc, char *argv[])
 							break;
 						}
 			case 'd':	{
+							std::cout << "optarg: " << optarg << std::endl;
 							year	= atoi(optarg);
 							parseOptarg(&optarg);
 							month	= atoi(optarg);
 							parseOptarg(&optarg);
 							day		= atof(optarg);
 							dateSupplied = true;
+							std::cout << " year: " << year << std::endl;
+							std::cout << "month: " << month << std::endl;
+							std::cout << "  day: " << day << std::endl;
+
 
 							break;
 						}
@@ -119,10 +125,12 @@ int main(int argc, char *argv[])
 	dateSupplied ? printDate(year, month, day) : getSystemDate(year, month, day, verbose);
 	timeSupplied ? printTime(hour, minute, second) : getSystemTime(hour, minute, second, verbose);
 
-	timestamp *ts = new timestamp(year, month, day, hour, minute, second, verbose);
+	//timestamp *ts = new timestamp(year, month, day, hour, minute, second, verbose);
 
-	if(ts)
-		delete ts;
+	julianday *jd = new julianday(year, month, day, hour, minute, second, verbose);
+
+	if(jd)
+		delete jd;
 
 	return 0;
 }	//	int main(int argc, char *argv[])
@@ -131,8 +139,10 @@ int main(int argc, char *argv[])
 
 void parseOptarg(char **_optarg)
 {
-	//std::cout << "inside ParseOptarg\n";
-	while(**_optarg != '.' && **_optarg != '-' && **_optarg != '/' && **_optarg != ':'){
+	// removed '-' as delimiter for date, must allow for negative years
+	//
+	//while(**_optarg != '.' && **_optarg != '-' && **_optarg != '/' && **_optarg != ':'){
+	while(**_optarg != '.' && **_optarg != '/' && **_optarg != ':'){
 		(*_optarg)++;
 	}
 	(*_optarg)++;

@@ -16,8 +16,9 @@ julianday::julianday(int _year, short _month, float _day, short _hour, short _mi
 	jd_verbose = _verbose;
 
 	jd_FLOATWIDTH		= 25;
-	jd_FLOATPRECISION	= 15;
+	jd_FLOATPRECISION	= 9;
 
 	jd_calculateJulianDay();
+
 	return;
 }

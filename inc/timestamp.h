@@ -1,5 +1,8 @@
 
 
+
+
+
 class timestamp{
 
 	enum class calendar_types{proleptic_julian, julian, gregorian};
@@ -21,8 +24,9 @@ class timestamp{
 	void	ts_calculateWeekday(void);
 
 protected:
-	enum class weekdays{monday, tuesday, wednesday, thursday, friday, saturday, sunday};
-	weekdays		ts_weekday;
+	enum class weekdays	{sunday, monday, tuesday, wednesday, thursday, friday, saturday};
+
+	weekdays			ts_weekday;
 
 
 public:

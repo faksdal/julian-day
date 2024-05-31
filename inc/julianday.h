@@ -18,11 +18,14 @@ private:
 	//	Precision formatters for terminal printing
 	short		jd_FLOATWIDTH, jd_FLOATPRECISION;
 
+	int			jd_doy;
+
 	bool		jd_verbose;
 
 	double		jd_julianDay;
+	double		jd_julianDayFraction;
 
-	weekdays	ts_weekday;
+	weekdays	jd_weekday;
 
 	void	jd_calculateJulianDay(void);
 
