@@ -56,7 +56,7 @@ void julianday::jd_calculateJulianDay(void)
 					+	ts_getDay() + B - 1524.5
 					;//-	0.5;
 
-	jd_julianDayFraction	=	jd_julianDay + ((ts_getHour() + (ts_getMinute()/60.) + (ts_getSecond()/3600.))/24.);
+	jd_julianDayFraction = jd_julianDay + ((ts_getHour() + (ts_getMinute()/60.) + (ts_getSecond()/3600.))/24.);
 
 	// Calculate doy
 	short K;
