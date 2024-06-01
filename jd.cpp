@@ -153,7 +153,7 @@ void parseOptarg(char **_optarg)
 
 void getSystemDate(int &_year, short &_month, float &_day, bool _verbose)
 {
-	if(_verbose)
+	//if(_verbose)
 		std::cout << "Date not supplied, using system date..." << std::endl;
 
 	time_t current = time(NULL);
@@ -176,15 +176,18 @@ void getSystemDate(int &_year, short &_month, float &_day, bool _verbose)
 
 void getSystemTime(short &_hour, short &_minute, float &_second, bool _verbose)
 {
-	if(_verbose)
-		std::cout << "Time not supplied, using system time..." << std::endl;
+	//if(_verbose)
+		std::cout << "Time not supplied, defaults to 00:00:00" << std::endl;
 
-	time_t current = time(NULL);
-	struct tm* current_s = localtime(&current);
+	//time_t current = time(NULL);
+	//struct tm* current_s = localtime(&current);
 
-	_hour	= current_s->tm_hour;
-	_minute	= current_s->tm_min;
-	_second	= current_s->tm_sec;
+	//_hour	= current_s->tm_hour;
+	//_minute	= current_s->tm_min;
+	//_second	= current_s->tm_sec;
+	_hour	= 0;
+	_minute	= 0;
+	_second	= 0.;
 
 	//	Fixes the floating point values on print, see: https://faculty.cs.niu.edu/~hutchins/csci241/output.htm
 	//	Used in conjunction with setw() and setprecision()
