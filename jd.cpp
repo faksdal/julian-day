@@ -92,9 +92,9 @@ int main(int argc, char *argv[])
 							parseOptarg(&optarg);
 							day		= atof(optarg);
 							dateSupplied = true;
-							std::cout << " year: " << year << std::endl;
-							std::cout << "month: " << month << std::endl;
-							std::cout << "  day: " << day << std::endl;
+							//std::cout << " year: " << year << std::endl;
+							//std::cout << "month: " << month << std::endl;
+							//std::cout << "  day: " << day << std::endl;
 
 
 							break;

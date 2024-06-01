@@ -32,18 +32,24 @@ void julianday::jd_calculateJulianDay(void)
 	//
 	if(!ts_getGregorianDate()){
 		if(jd_verbose)
-			std::cout << "Perform Meeus calculations based on Julian date..." << std::endl;
+			std::cout	<< "Perform Meeus calculations based on Julian date " << (int)ts_getDay()
+						<< "/" << ts_getMonth()
+						<< "-" << ts_getYear() << std::endl;
+
 		//A	=	floor(jdnYear/100);
 		B	=	0;
 	}
 	else if(ts_getGregorianDate()){
 		if(jd_verbose)
-			std::cout << "Perform Meeus calculations based on Gregorian date..." << std::endl;
+			std::cout	<< "Perform Meeus calculations based on Gregorian date " << (int)ts_getDay()
+						<< "/" << ts_getMonth()
+						<< "-" << ts_getYear() << std::endl;
 
 		//	The following algorithm is taken from Jean Meeus Astronomical Algorithms Second Edition published in 1998.
-		//A	=	floor(JDYear/100);
-		//int B	=	2 - A + floor(A/4);
+		//	A	=	floor(JDYear/100);
+		//	int B	=	2 - A + floor(A/4);
 		B	=	2 - (floor(ts_getYear()/100.)) + floor((floor(ts_getYear()/100.))/4.);
+		std::cout << "Value of B: " << B << std::endl;
 
 	}
 
@@ -56,19 +62,21 @@ void julianday::jd_calculateJulianDay(void)
 					+	ts_getDay() + B - 1524.5
 					;//-	0.5;
 
+	//	Then we add the fraction of the day
 	jd_julianDayFraction = jd_julianDay + ((ts_getHour() + (ts_getMinute()/60.) + (ts_getSecond()/3600.))/24.);
 
 	// Calculate doy
 	short K;
 	ts_getLeap() ? K = 1 : K = 2;
 	jd_doy = floor( ((275 * ts_getMonth())/9) ) - K * floor(((ts_getMonth() + 9)/(12))) + ts_getDay() - 30;
+	// doy
 
-	if(jd_verbose){
+	//if(jd_verbose){
 		std::cout << std::fixed;
 		std::cout << "               Julian Day: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_julianDay << std::endl;
 		std::cout << "      Julian Day Fraction: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_julianDayFraction << std::endl;
 		std::cout << "                      doy: " << std::setw(jd_FLOATWIDTH) << std::setprecision(jd_FLOATPRECISION) << std::setfill(' ') << jd_doy << std::endl;
-	}
+	//}
 
 /*
 	//

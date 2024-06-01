@@ -9,7 +9,7 @@
 
 
 
-timestamp::timestamp(int _year, short _month, float _day, short _hour, short _minute, float _second, bool _verbose)
+timestamp::timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, bool _verbose)
 {
 	ts_validDate = true;
 
@@ -21,6 +21,7 @@ timestamp::timestamp(int _year, short _month, float _day, short _hour, short _mi
 	ts_second	= _second;
 	ts_verbose	= _verbose;
 
+	/*
 	std::cout << " _year: " << _year << std::endl;
 	std::cout << "_month: " << _month << std::endl;
 	std::cout << "  _day: " << _day << std::endl;
@@ -28,6 +29,7 @@ timestamp::timestamp(int _year, short _month, float _day, short _hour, short _mi
 	std::cout << " ts_year: " << ts_year << std::endl;
 	std::cout << "ts_month: " << ts_month << std::endl;
 	std::cout << "  ts_day: " << ts_day << std::endl;
+	*/
 
 	ts_parseDate();
 
@@ -150,17 +152,26 @@ void timestamp::ts_parseDate(void)
 	if(ts_gregorianDate){
 		ts_calendar_type = calendar_types::gregorian;
 
-		std::cout << "Gregorian" << std::endl;
+		/*
+		if(ts_verbose)
+			std::cout << "Gregorian date" << std::endl;
+		*/
 	}
 
 	else if(!ts_gregorianDate && ts_year >= 4 && ts_month >= 3){
 		ts_calendar_type = calendar_types::julian;
-		std::cout << "Julian" << std::endl;
+
+		/*
+		if(ts_verbose)
+			std::cout << "Julian date" << std::endl;
+		*/
 	}
 
 	else{
 		ts_calendar_type = calendar_types::proleptic_julian;
-		std::cout << "Proleptic julian" << std::endl;
+
+		if(ts_verbose)
+			std::cout << "Proleptic julian date" << std::endl;
 	}
 
 

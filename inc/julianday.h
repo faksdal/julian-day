@@ -30,7 +30,7 @@ private:
 	void	jd_calculateJulianDay(void);
 
 public:
-	julianday(int _year, short _month, float _day, short _hour, short _minute, float _second, bool _verbose);
+	julianday(int _year, short _month, double _day, short _hour, short _minute, double _second, bool _verbose);
 
 };
 

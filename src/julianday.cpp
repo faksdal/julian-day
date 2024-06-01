@@ -10,13 +10,13 @@
 
 
 
-julianday::julianday(int _year, short _month, float _day, short _hour, short _minute, float _second, bool _verbose) :
+julianday::julianday(int _year, short _month, double _day, short _hour, short _minute, double _second, bool _verbose) :
            timestamp(_year, _month, _day, _hour, _minute, _second, _verbose)
 {
 	jd_verbose = _verbose;
 
 	jd_FLOATWIDTH		= 25;
-	jd_FLOATPRECISION	= 9;
+	jd_FLOATPRECISION	= 7;
 
 	jd_calculateJulianDay();
 
