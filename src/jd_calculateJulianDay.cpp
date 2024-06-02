@@ -49,18 +49,17 @@ void julianday::jd_calculateJulianDay(void)
 		//	A	=	floor(JDYear/100);
 		//	int B	=	2 - A + floor(A/4);
 		B	=	2 - (floor(ts_getYear()/100.)) + floor((floor(ts_getYear()/100.))/4.);
-		std::cout << "Value of B: " << B << std::endl;
 
 	}
 
 	//
-	//	Calculate the jdn according to p.61 (7.1) in Jean Meeus Astronomical Algorithms Second Edition published in 1998.
+	//	Calculate the jdn according to p.61 (7.1) in Jean Meeus Astronomical Algorithms
+	//	Second Edition published in 1998.
 	//
 	//	We calculate first the value for JD at noon
 	jd_julianDay =		floor(365.25 * (Y + 4716.))
 					+	floor(30.6001 * (M + 1.))
-					+	ts_getDay() + B - 1524.5
-					;//-	0.5;
+					+	ts_getDay() + B - 1524.5;
 
 	//	Then we add the fraction of the day
 	jd_julianDayFraction = jd_julianDay + ((ts_getHour() + (ts_getMinute()/60.) + (ts_getSecond()/3600.))/24.);
